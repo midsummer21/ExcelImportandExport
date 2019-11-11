@@ -1,0 +1,58 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo2.dao.UserDao">
+
+    <select id="get" parameterType="int" resultType="com.example.demo2.entity.User">
+        select * from user_table where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.example.demo2.entity.User">
+        insert into user_table
+        (xuhao,`name`,mobile,jiedao,juweihui,xiaoqu,
+        louhao,danyuan,menpai,huma,jimihuma)values
+        (#{user.xuhao},#{user.name},#{user.mobile},#{user.jiedao},
+        #{user.juweihui},#{user.xiaoqu},#{user.louhao},#{user.danyuan},
+        #{user.menpai},#{user.huma},#{user.jimihuma})
+    </insert>
+
+    <insert id="batchInsert" parameterType="list">
+        insert into user_table
+        (xuhao,`name`,
+        mobile,jiedao,
+        juweihui,xiaoqu,
+        louhao,danyuan,
+        menpai,huma,
+        jimihuma)values
+        <foreach collection="list" separator="," item="user">
+            (#{user.xuhao},#{user.name},
+            #{user.mobile},#{user.jiedao},
+            #{user.juweihui},#{user.xiaoqu},
+            #{user.louhao},#{user.danyuan},
+            #{user.menpai},#{user.huma},
+            #{user.jimihuma}
+            )
+        </foreach>
+    </insert>
+
+    <update id="delete" parameterType="int">
+        update user_table set del_flag = 0 where id = #{id}
+    </update>
+
+    <update id="update" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.demo2.entity.User">
+        update user_table set
+            xuhao = #{xuhao},
+            `name` = #{name},
+            mobile = #{mobile},
+            jiedao = #{jiedao},
+            juweihui = #{juweihui},
+            xiaoqu = #{xiaoqu},
+            louhao  = #{louhao},
+            danyuan = #{danyuan},
+            menpai  = #{menpai},
+            huma = #{huma},
+            jimihuma = #{jimihuma},
+        where id = #{id}
+    </update>
+</mapper>
